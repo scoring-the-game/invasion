@@ -7,7 +7,8 @@ import { mapSfx } from '../sfx';
 const TextRenderable = me.Renderable.extend({
   // constructor
   init() {
-    this._super(me.Renderable, 'init', [0, 0, me.game.viewport.width, 50]);
+    const { width } = me.game.viewport;
+    this._super(me.Renderable, 'init', [0, 0, width, 40]);
 
     // font for the scrolling text
     this.font = new me.BitmapFont(
@@ -25,6 +26,24 @@ const TextRenderable = me.Renderable.extend({
     const { width, height } = me.game.viewport;
     this.font.textAlign = 'center';
     this.font.draw(renderer, `[ LEVEL: ${getLevel()} - SCORE: ${getScore()} ]`, width, height);
+  },
+});
+
+const RectRenderable = me.Renderable.extend({
+  init() {
+    const { width, height } = me.game.viewport;
+    // position, width, height
+    this._super(me.Renderable, 'init', [0, height - 4, 2 * width, 50]);
+  },
+
+  update() {
+    return true;
+  },
+
+  draw(renderer) {
+    renderer.setColor('#003');
+    console.log('RectRenderable =>', this.pos.x, this.pos.y, this.width, this.height);
+    renderer.fillRect(this.pos.x, this.pos.y, this.width, this.height);
   },
 });
 
@@ -57,21 +76,24 @@ export const PlayScreen = me.ScreenObject.extend({
 
     incrementLevel();
 
-    me.game.world.addChild(new me.ColorLayer('background', '#171717'), 0);
-    this.player = me.pool.pull('player');
-    me.game.world.addChild(this.player, 1);
-
     me.input.bindKey(me.input.KEY.LEFT, 'left');
     me.input.bindKey(me.input.KEY.RIGHT, 'right');
     me.input.bindKey(me.input.KEY.A, 'left');
     me.input.bindKey(me.input.KEY.D, 'right');
     me.input.bindKey(me.input.KEY.SPACE, 'shoot', true);
 
+    this.player = me.pool.pull('player');
     this.enemyManager = new EnemyManager();
     this.enemyManager.createEnemies();
-    me.game.world.addChild(this.enemyManager, 2);
 
-    me.game.world.addChild(new TextRenderable(), 3);
+    const { world } = me.game;
+    let iChild = 0;
+    world.addChild(new me.ColorLayer('background', '#171717'), iChild++);
+    world.addChild(new RectRenderable(), iChild++);
+    world.addChild(new TextRenderable(), iChild++);
+    world.addChild(this.player, iChild++);
+    world.addChild(this.enemyManager, iChild++);
+
   },
 
   //  action to perform when leaving this screen (state change)
