@@ -1,0 +1,16 @@
+{
+  "name": "scoring-the-game/invasion",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.9.5",
+    "typescript": "^2.9.2"
+  },
+  "scripts": {
+    "serve": "parcel index.html"
+  },
+  "dependencies": {
+    "media": "^0.2.1"
+  }
+}
