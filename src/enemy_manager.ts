@@ -1,5 +1,6 @@
 import { me } from './me';
 import { get as getLevel } from './level';
+import { getScreen, ScreenTags } from './screens'
 
 const kNumRows = 4;
 const kNumCols = 9;
@@ -54,7 +55,8 @@ export const EnemyManager = me.Container.extend({
       } else {
         this.vel -= 5;
       }
-      window.game.playScreen.checkIfLoss(bounds.bottom);
+      const playScreen = getScreen(ScreenTags.play);
+      playScreen.checkIfLoss(bounds.bottom);
     } else {
       this.pos.x += this.vel;
     }

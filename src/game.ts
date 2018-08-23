@@ -1,9 +1,6 @@
 import { me } from './me';
 // console.log('game =>', { me })
-import { TitleScreen } from './screens/title';
-import { PlayScreen } from './screens/play';
-import { LevelCompletedScreen } from './screens/levelCompleted';
-import { GameOverScreen } from './screens/gameOver';
+import { createScreens, getScreen, ScreenTags } from './screens';
 import { Enemy } from './enemy';
 import { Player } from './player';
 import { Laser } from './laser';
@@ -45,22 +42,11 @@ const onload = () => {
 const didLoad = () => {
   // console.log('Game#loaded');
 
-  // set the "Play/Ingame" Screen Object
-  const titleScreen = new TitleScreen();
-  me.state.set(me.state.MENU, titleScreen);
-  window.game.titleScreen = titleScreen;
-
-  const playScreen = new PlayScreen();
-  me.state.set(me.state.PLAY, playScreen);
-  window.game.playScreen = playScreen;
-
-  const levelCompletedScreen = new LevelCompletedScreen();
-  me.state.set(me.state.USER, levelCompletedScreen);
-  window.game.levelCompletedScreen = levelCompletedScreen;
-
-  const gameOverScreen = new GameOverScreen();
-  me.state.set(me.state.GAMEOVER, gameOverScreen);
-  window.game.gameOverScreen = gameOverScreen;
+  createScreens();
+  me.state.set(me.state.MENU, getScreen(ScreenTags.title));
+  me.state.set(me.state.PLAY, getScreen(ScreenTags.play));
+  me.state.set(me.state.USER, getScreen(ScreenTags.levelCompleted));
+  me.state.set(me.state.GAMEOVER, getScreen(ScreenTags.gameOver));
 
   // add our player entity in the entity pool
   me.pool.register('player', Player);

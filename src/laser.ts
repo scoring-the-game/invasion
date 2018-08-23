@@ -1,9 +1,25 @@
 import { me } from './me';
 import { increment as incrementScore, get as getScore } from './score';
 import { mapSfx } from './sfx';
+import { getScreen, ScreenTags } from './screens';
 
 export const kLaserWidth = 5;
 export const kLaserHeight = 28;
+
+const LaserRenderable = me.Renderable.extend({
+  init() {
+    this._super(me.Renderable, 'init', [0, 0, kLaserWidth, kLaserHeight]);
+  },
+
+  destroy() {},
+
+  draw(renderer) {
+    var color = renderer.getColor();
+    renderer.setColor('#5EFF7E');
+    renderer.fillRect(0, 0, this.width, this.height);
+    renderer.setColor(color);
+  },
+});
 
 export const Laser = me.Entity.extend({
   init(x, y) {
@@ -12,18 +28,7 @@ export const Laser = me.Entity.extend({
     this.z = 5;
     this.body.setVelocity(0, 100);
     this.body.collisionType = me.collision.types.PROJECTILE_OBJECT;
-    this.renderable = new (me.Renderable.extend({
-      init() {
-        this._super(me.Renderable, 'init', [0, 0, kLaserWidth, kLaserHeight]);
-      },
-      destroy() {},
-      draw(renderer) {
-        var color = renderer.getColor();
-        renderer.setColor('#5EFF7E');
-        renderer.fillRect(0, 0, this.width, this.height);
-        renderer.setColor(color);
-      },
-    }))();
+    this.renderable = new LaserRenderable();
     this.alwaysUpdate = true;
   },
 
@@ -33,7 +38,8 @@ export const Laser = me.Entity.extend({
       me.audio.play(mapSfx['hit']);
       incrementScore();
       me.game.world.removeChild(this);
-      window.game.playScreen.enemyManager.removeChild(other);
+      const playScreen = getScreen(ScreenTags.play);
+      playScreen.enemyManager.removeChild(other);
       return true;
     }
   },
@@ -51,4 +57,3 @@ export const Laser = me.Entity.extend({
     return true;
   },
 });
-
