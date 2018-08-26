@@ -42,7 +42,6 @@ const RectRenderable = me.Renderable.extend({
 
   draw(renderer) {
     renderer.setColor('#003');
-    console.log('RectRenderable =>', this.pos.x, this.pos.y, this.width, this.height);
     renderer.fillRect(this.pos.x, this.pos.y, this.width, this.height);
   },
 });
@@ -64,7 +63,7 @@ export const PlayScreen = me.ScreenObject.extend({
     // console.log('PlayScreen#checkIfLoss');
     if (y >= this.player.pos.y) {
       me.audio.play(mapSfx.die);
-      setTimeout(() => me.state.change(me.state.GAMEOVER), 750);
+      me.timer.setTimeout(() => me.state.change(me.state.GAMEOVER), 750);
     }
   },
 

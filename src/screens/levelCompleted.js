@@ -57,10 +57,8 @@ export const LevelCompletedScreen = me.ScreenObject.extend({
   },
 
   handleKeyDown(action, keyCode, edge) {
-    if (action === 'enter') {
-      // play something on tap / enter
-      // this will unlock audio on mobile devices
-      // me.audio.play('cling');
+    const isUserState = me.state.isCurrent(me.state.USER);
+    if (isUserState && action === 'enter') {
       me.state.change(me.state.PLAY);
     }
   },

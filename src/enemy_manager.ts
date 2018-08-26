@@ -48,41 +48,44 @@ export const EnemyManager = me.Container.extend({
       (this.vel > 0 && bounds.right + this.vel >= me.game.viewport.width) ||
       (this.vel < 0 && bounds.left + this.vel <= 0)
     ) {
-      this.vel *= -1;
       this.pos.y += 16;
-      if (this.vel > 0) {
-        this.vel += 5;
-      } else {
-        this.vel -= 5;
-      }
+      this.vel *= -1;
+      this.vel += 5 * (this.vel > 0 ? 1 : -1);
       const playScreen = getScreen(ScreenTags.play);
       playScreen.checkIfLoss(bounds.bottom);
     } else {
       this.pos.x += this.vel;
     }
+    this.triggerTimer();
+  },
+
+  triggerTimer() {
+    this.timer = me.timer.setTimeout(() => this.tick(), this.millisInterval);
+  },
+
+  clearTimer() {
+    if (this.timer) {
+      me.timer.clearTimeout(this.timer);
+      this.timer = null;
+    }
   },
 
   onActivateEvent() {
-    // console.log('EnemyManager#onActivateEvent');
-    this.timer = me.timer.setInterval(() => this.tick(), this.millisInterval);
+    this.triggerTimer();
   },
 
   onDeactivateEvent() {
-    // console.log('EnemyManager#onDeactivateEvent');
-    me.timer.clearInterval(this.timer);
+    this.clearTimer();
   },
 
   removeChildNow(child) {
-    // console.log('EnemyManager#removeChildNow');
     this._super(me.Container, 'removeChildNow', [child]);
     this.updateChildBounds();
   },
 
   update(time) {
-    // console.log('EnemyManager#update');
     if (this.children.length === 0 && this.didCreateEnemies) {
-      // window.game.playScreen.reset();
-      setTimeout(() => me.state.change(me.state.USER), 750);
+      me.timer.setTimeout(() => me.state.change(me.state.USER), 750);
     }
     this._super(me.Container, 'update', [time]);
     this.updateChildBounds();
