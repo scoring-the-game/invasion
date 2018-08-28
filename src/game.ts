@@ -21,11 +21,6 @@ const onload = () => {
     return;
   }
 
-  // add "#debug" to the URL to enable the debug Panel
-  if (me.game.HASH.debug === true) {
-    window.onReady(() => me.plugin.register.defer(game, me.debug.Panel, 'debug', me.input.KEY.V));
-  }
-
   // Initialize the audio.
   me.audio.init('mp3,wav');
 
