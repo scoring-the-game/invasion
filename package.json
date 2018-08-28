@@ -8,9 +8,12 @@
     "typescript": "^2.9.2"
   },
   "scripts": {
-    "serve": "parcel index.html"
+    "serve": "parcel index.html",
+    "prettier-check": "prettier --single-quote --trailing-comma es5 --print-width 100 --list-different **/src/**/*.ts",
+    "prettier": "yarn prettier-check --write"
   },
   "dependencies": {
-    "media": "^0.2.1"
+    "media": "^0.2.1",
+    "prettier": "^1.14.2"
   }
 }
