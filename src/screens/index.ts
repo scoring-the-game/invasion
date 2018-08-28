@@ -10,7 +10,7 @@ export const enum ScreenTags {
   gameOver = 'game-over',
 }
 
-type TScreenTagMap = { [tag in ScreenTags]: any }
+type TScreenTagMap = { [tag in ScreenTags]: any };
 
 export let screenTagMap: TScreenTagMap;
 
@@ -20,9 +20,9 @@ export const createScreens = () => {
     [ScreenTags.play]: new PlayScreen(),
     [ScreenTags.levelCompleted]: new LevelCompletedScreen(),
     [ScreenTags.gameOver]: new GameOverScreen(),
-  }
-}
+  };
+};
 
-export const getScreen = (screenTag: ScreenTags): any {
+export const getScreen = (screenTag: ScreenTags): any => {
   return screenTagMap[screenTag];
-}
+};

@@ -1,3 +1,4 @@
 import { me } from '../lib/melonjs';
-window.me = me;
+
+(window as any).me = me;
 export { me };
