@@ -1,6 +1,6 @@
 import { me } from './me';
 import { get as getLevel } from './level';
-import { getScreen, ScreenTags } from './screens'
+import { getScreen, ScreenTags } from './screens';
 
 const kNumRows = 4;
 const kNumCols = 9;

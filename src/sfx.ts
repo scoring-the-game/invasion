@@ -22,7 +22,7 @@ const rawNames = [
 
 export const sfxNames = rawNames.map(rawName => rawName.slice(1).slice(0, -4));
 
-export const sfxResources = sfxNames.map(name => ({ name, type: 'audio', src: '' }))
+export const sfxResources = sfxNames.map(name => ({ name, type: 'audio', src: '' }));
 
 const nameReducer = (map, name) => {
   const key = name.split('.')[0];

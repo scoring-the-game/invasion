@@ -46,7 +46,7 @@ export const Laser = me.Entity.extend({
 
   update(time) {
     // console.log('Laser#update');
-    this.body.vel.y -= this.body.accel.y * time / 1000;
+    this.body.vel.y -= (this.body.accel.y * time) / 1000;
     if (this.pos.y + this.height <= 0) {
       me.game.world.removeChild(this);
     }

@@ -92,7 +92,6 @@ export const PlayScreen = me.ScreenObject.extend({
     world.addChild(new TextRenderable(), iChild++);
     world.addChild(this.player, iChild++);
     world.addChild(this.enemyManager, iChild++);
-
   },
 
   //  action to perform when leaving this screen (state change)

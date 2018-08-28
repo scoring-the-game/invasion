@@ -15,7 +15,7 @@ const onload = () => {
     scale: 'auto',
     scaleMethod: 'fit',
     doubleBuffering: true,
-  }
+  };
   if (!me.video.init(640, 480, videoProps)) {
     alert('Your browser does not support HTML5 canvas.');
     return;
@@ -51,6 +51,5 @@ const didLoad = () => {
   // start the game
   me.state.change(me.state.MENU);
 };
-
 
 export const game = { onload, didLoad };

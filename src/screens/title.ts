@@ -22,8 +22,7 @@ const TextRenderable = me.Renderable.extend({
     this.font.draw(renderer, 'PRESS ENTER TO PLAY', width, height);
   },
 
-  onDestroyEvent() {
-  },
+  onDestroyEvent() {},
 });
 
 export const TitleScreen = me.ScreenObject.extend({

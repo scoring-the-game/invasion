@@ -22,7 +22,7 @@ export const Player = me.Sprite.extend({
     // console.log('Player#update');
     this._super(me.Sprite, 'update', [dt]);
 
-    const dx = this.velx * dt / 1000;
+    const dx = (this.velx * dt) / 1000;
 
     if (me.input.isKeyPressed('left')) {
       this.pos.x -= dx;
