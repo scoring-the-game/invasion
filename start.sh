@@ -1,4 +1,4 @@
 #!/bin/bash
-yarn serve &
-sleep 10
-open http://localhost:1234/
+cd -- "$(dirname "$BASH_SOURCE")"
+`sleep 5 && open http://localhost:1234/` &
+yarn serve
